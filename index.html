@@ -1,10 +1,196 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Chris Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christopher Fendika Lee | Lead Game Programmer</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body style="text-align: center; font-family: sans-serif; padding-top: 50px;">
-    <h1>Hello, World!</h1>
-    <p>This is a test page.</p>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">&lt;Christopher /&gt;</a>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact" class="btn-highlight">Contact Me</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container hero-content">
+            <h1 class="glitch-text">Christopher Fendika Lee</h1>
+            <h2>Lead Game Programmer & Unity Specialist</h2>
+            <p>
+                Specializing in <strong>Game Architecture</strong>, <strong>LiveOps Systems</strong>, and <strong>Tool Development</strong>. 
+                I bridge the gap between complex code and visual polish.
+            </p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn primary">View My Work</a>
+                <!-- Replace 'resume.pdf' with your actual file name -->
+                <a href="assets/ChristopherLee_UnityDev_CV.pdf" target="_blank" class="btn secondary"><i class="fas fa-file-download"></i> Download CV</a>
+            </div>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/christopher-fendika-lee" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Bug01000011Hunter" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://christopherfl.itch.io" target="_blank"><i class="fab fa-itch-io"></i></a>
+                <a href="mailto:christopherfl.work@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+
+            <!-- Project 1: Cisini Stories -->
+            <article class="project-card">
+                <div class="project-visual">
+                    <!-- PLACEHOLDER: Replace src with a screenshot or gif of Cisini Stories -->
+                    <div class="placeholder-img">
+                        <i class="fas fa-gamepad"></i>
+                        <span>Upload Screenshot/GIF of Cisini Stories</span>
+                    </div>
+                    <!-- <img src="assets/cisini.jpg" alt="Cisini Stories Gameplay"> -->
+                </div>
+                <div class="project-info">
+                    <h3>Cisini Stories (Live 2D RPG)</h3>
+                    <div class="tags">
+                        <span>Unity</span><span>LiveOps</span><span>System Architecture</span>
+                    </div>
+                    <p>Lead Programmer for a live narrative RPG. Refactored legacy core systems to SOLID principles, ensuring stability during monthly updates.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Maintained <strong>99.4% crash-free rate</strong> during major revenue surge.</li>
+                        <li><i class="fas fa-check"></i> Implemented Async Animation System for "Game Feel".</li>
+                        <li><i class="fas fa-check"></i> Integrated Firebase, Remote Config, and AppLovin stacks.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Project 2: Multiplayer Prototype -->
+            <article class="project-card reverse">
+                <div class="project-visual">
+                     <!-- PLACEHOLDER: Replace src with a screenshot of Multiplayer code or gameplay -->
+                     <div class="placeholder-img">
+                        <i class="fas fa-network-wired"></i>
+                        <span>Upload Multiplayer Demo Screenshot</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Server-Authoritative Multiplayer</h3>
+                    <div class="tags">
+                        <span>Mirror/Photon</span><span>Backend</span><span>Lag Compensation</span>
+                    </div>
+                    <p>A competitive multiplayer prototype selected for an international incubation program.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Built server-authoritative logic to prevent cheating.</li>
+                        <li><i class="fas fa-check"></i> Implemented state synchronization and interpolation.</li>
+                        <li><i class="fas fa-check"></i> Optimized bandwidth usage for mobile networks.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Project 3: Tech Art Tools -->
+            <article class="project-card">
+                <div class="project-visual">
+                     <!-- PLACEHOLDER: Replace src with a screenshot of your Python script or Blender -->
+                     <div class="placeholder-img">
+                        <i class="fas fa-tools"></i>
+                        <span>Upload Tool/Python Screenshot</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Python API for Blender</h3>
+                    <div class="tags">
+                        <span>Python</span><span>OpenCV</span><span>Tech Art</span>
+                    </div>
+                    <p>Automation tools created to accelerate the art pipeline and validate asset quality.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Auto-generated 3D models via Python API.</li>
+                        <li><i class="fas fa-check"></i> Automated texture generation and lighting baking.</li>
+                        <li><i class="fas fa-check"></i> Reduced manual asset validation time for 3D artists.</li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2 class="section-title">Technical Stack</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Languages</h3>
+                    <p>C#, C/C++, Python, JavaScript, SQL, Go, GDScript</p>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-layer-group"></i> Engine & Core</h3>
+                    <p>Unity (Expert), Godot, SOLID Principles, Addressables, Memory Management</p>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-globe"></i> Multiplayer & Backend</h3>
+                    <p>Mirror, Photon, Nakama, REST API, Google Cloud Platform, Git</p>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-chart-line"></i> LiveOps & Tools</h3>
+                    <p>Firebase (Analytics/Remote Config), Adjust, AppLovin, Blender Scripting, OpenCV</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline (Condensed) -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience Highlights</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="date">Nov 2024 - Present</span>
+                    <h3>Lead Game Programmer</h3>
+                    <p><strong>Ikan Asin Production</strong> • Mentoring juniors, managing technical roadmaps, and leading monthly releases for Cisini Stories.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="date">Mar 2023 - June 2024</span>
+                    <h3>Game Developer</h3>
+                    <p><strong>PT Graphie Global Interaktif</strong> • Developed TCG mechanics, Backend (Go), and Tech Art tools (Python/Blender).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <h2>Let's Build Something Great</h2>
+            <p>Open for opportunities in Game Programming.</p>
+            <a href="mailto:christopherfl.work@gmail.com" class="btn primary">Get in Touch</a>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Christopher Fendika Lee.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Smooth Scroll script
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
