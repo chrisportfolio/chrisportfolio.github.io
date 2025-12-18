@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christopher Fendika Lee | Lead Game Programmer</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Added Cinzel for the DM Theme -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -16,27 +16,31 @@
     <nav>
         <div class="container nav-wrapper">
             <a href="#" class="logo">&lt;Christopher /&gt;</a>
-            <ul class="nav-links">
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#contact" class="btn-highlight">Contact Me</a></li>
-            </ul>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#architecture">Industry Works</a></li>
+                    <li><a href="#creative">Creative Works</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                </ul>
+                <!-- Theme Toggle Button -->
+                <button id="dm-toggle" class="dm-btn" title="Toggle Theme">
+                    <i class="fas fa-dice-d20 fa-lg"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header class="hero">
         <div class="container hero-content">
-            <h1 class="glitch-text">Christopher Fendika Lee</h1>
+            <h1>Christopher Fendika Lee</h1>
             <h2>Lead Game Programmer & Unity Specialist</h2>
             <p>
                 Specializing in <strong>Game Architecture</strong>, <strong>LiveOps Systems</strong>, and <strong>Tool Development</strong>. 
-                I bridge the gap between complex code and visual polish.
+                <br>I bridge the gap between complex logic and visual polish.
             </p>
             <div class="hero-btns">
-                <a href="#projects" class="btn primary">View My Work</a>
-                <!-- Replace 'resume.pdf' with your actual file name -->
+                <a href="#architecture" class="btn primary">View Projects</a>
                 <a href="assets/ChristopherLee_UnityDev_CV.pdf" target="_blank" class="btn secondary"><i class="fas fa-file-download"></i> Download CV</a>
             </div>
             <div class="social-links">
@@ -48,87 +52,204 @@
         </div>
     </header>
 
-    <!-- Projects Section -->
-    <section id="projects">
+    <!-- SECTION 1: SYSTEM ARCHITECTURE (Professional Work) -->
+    <!-- SECTION 1: SELECTED INDUSTRY WORKS -->
+    <section id="architecture">
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
+            <!-- Title updated, data-dm-text removed -->
+            <h2 class="section-title">Selected Industry Works</h2>
 
-            <!-- Project 1: Cisini Stories -->
+            <!-- Card 1: Cisini Stories (Focus: Leadership & Stability) -->
             <article class="project-card">
-                <div class="project-visual">
-                    <!-- PLACEHOLDER: Replace src with a screenshot or gif of Cisini Stories -->
+                <div class="project-visual video-container">
                     <div class="placeholder-img">
-                        <i class="fas fa-gamepad"></i>
-                        <span>Upload Screenshot/GIF of Cisini Stories</span>
+                        <i class="fas fa-play"></i>
+                        <span>Hover: Game Flow State</span>
                     </div>
-                    <!-- <img src="assets/cisini.jpg" alt="Cisini Stories Gameplay"> -->
+                    <!-- Upload 'cisini-flow.mp4' later -->
+                    <video src="assets/cisini-flow.mp4" muted loop class="hover-video"></video>
+                    
+                    <div id="code-cisini" class="code-overlay">
+<pre><code class="language-csharp">
+// Strict Interface-Based Flow
+public interface ISystem {
+    void OnInitialized();
+    void OnGameBegin();
+    void OnUpdate(float dt);
+    void OnCleanup();
+}
+
+// Manager Loop (Deterministic)
+private void Update() {
+    foreach(var system in _systems) {
+        if(system.IsActive) 
+            system.OnUpdate(Time.deltaTime);
+    }
+}
+</code></pre>
+                    </div>
                 </div>
+
                 <div class="project-info">
-                    <h3>Cisini Stories (Live 2D RPG)</h3>
+                    <h3>Cisini Stories (Lead Engineer)</h3>
                     <div class="tags">
-                        <span>Unity</span><span>LiveOps</span><span>System Architecture</span>
+                        <span>Lead & Mentorship</span><span>LiveOps</span><span>Architecture</span>
                     </div>
-                    <p>Lead Programmer for a live narrative RPG. Refactored legacy core systems to SOLID principles, ensuring stability during monthly updates.</p>
+                    <p>Lead Programmer for a live narrative RPG. Directed the technical roadmap and refactored core gameplay flows to support monthly content updates.</p>
                     <ul>
-                        <li><i class="fas fa-check"></i> Maintained <strong>99.4% crash-free rate</strong> during major revenue surge.</li>
-                        <li><i class="fas fa-check"></i> Implemented Async Animation System for "Game Feel".</li>
-                        <li><i class="fas fa-check"></i> Integrated Firebase, Remote Config, and AppLovin stacks.</li>
+                        <li><i class="fas fa-bug"></i> Maintained 99.4% crash-free rate during user surge.</li>
+                        <li><i class="fas fa-check"></i> Implemented Async Animation system for "Game Feel".</li>
+                        <li><i class="fas fa-server"></i> Zero downtime during major revenue surge.</li>
                     </ul>
+                    <button class="btn secondary" onclick="toggleCode('cisini')">
+                        <i class="fas fa-code"></i> Toggle Logic
+                    </button>
                 </div>
             </article>
 
-            <!-- Project 2: Multiplayer Prototype -->
+            <!-- Card 2: Multiplayer (Focus: Complex Logic) -->
             <article class="project-card reverse">
-                <div class="project-visual">
-                     <!-- PLACEHOLDER: Replace src with a screenshot of Multiplayer code or gameplay -->
-                     <div class="placeholder-img">
+                <div class="project-visual video-container">
+                    <div class="placeholder-img">
                         <i class="fas fa-network-wired"></i>
-                        <span>Upload Multiplayer Demo Screenshot</span>
+                        <span>Hover: Lag Compensation</span>
+                    </div>
+                    <!-- Upload 'multiplayer-lag.mp4' later -->
+                    <video src="assets/multiplayer-lag.mp4" muted loop class="hover-video"></video>
+                    
+                    <div id="code-multi" class="code-overlay">
+<pre><code class="language-csharp">
+// Server Validation Logic
+public void ValidateMove(Vector3 clientPos, float timestamp) {
+    float latency = GetLatency(clientId);
+    // Allowable distance based on speed + latency
+    float maxDist = speed * (timestamp - lastTime + latency);
+    
+    if (Vector3.Distance(lastPos, clientPos) > maxDist) {
+        CorrectPosition(lastPos); // Rubberband
+    }
+}
+</code></pre>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3>Server-Authoritative Multiplayer</h3>
+                    <h3>Real-Time Multiplayer Core</h3>
                     <div class="tags">
-                        <span>Mirror/Photon</span><span>Backend</span><span>Lag Compensation</span>
+                        <span>Networking</span><span>Prediction</span><span>Anti-Cheat</span>
                     </div>
-                    <p>A competitive multiplayer prototype selected for an international incubation program.</p>
+                    <p>Built a server-authoritative prototype to prevent speed-hacking. Solved complex replication challenges for volatile mobile networks.</p>
                     <ul>
-                        <li><i class="fas fa-check"></i> Built server-authoritative logic to prevent cheating.</li>
-                        <li><i class="fas fa-check"></i> Implemented state synchronization and interpolation.</li>
-                        <li><i class="fas fa-check"></i> Optimized bandwidth usage for mobile networks.</li>
+                        <li><i class="fas fa-check"></i> Custom Lag Compensation & Interpolation.</li>
+                        <li><i class="fas fa-check"></i> Optimized Bandwidth usage for low-end devices.</li>
                     </ul>
+                    <button class="btn secondary" onclick="toggleCode('multi')">
+                        <i class="fas fa-code"></i> Toggle Logic
+                    </button>
                 </div>
             </article>
 
-            <!-- Project 3: Tech Art Tools -->
+            <!-- Card 3: Tools (Focus: Pipeline & Python) -->
             <article class="project-card">
-                <div class="project-visual">
-                     <!-- PLACEHOLDER: Replace src with a screenshot of your Python script or Blender -->
-                     <div class="placeholder-img">
+                <div class="project-visual video-container">
+                    <div class="placeholder-img">
                         <i class="fas fa-tools"></i>
-                        <span>Upload Tool/Python Screenshot</span>
+                        <span>Hover: Auto-Model Generation</span>
+                    </div>
+                    <!-- Upload 'tools-automation.mp4' later -->
+                    <video src="assets/tools-automation.mp4" muted loop class="hover-video"></video>
+                    
+                    <div id="code-tools" class="code-overlay">
+<pre><code class="language-python">
+# Python Blender API Script
+import bpy
+
+def batch_process_assets(path):
+    for obj in bpy.context.scene.objects:
+        if obj.type == 'MESH':
+            # Auto-generate UVs and Bake Lighting
+            bpy.ops.uv.smart_project()
+            bake_texture(obj, "diffuse")
+            
+    export_to_unity(path)
+</code></pre>
                     </div>
                 </div>
+
                 <div class="project-info">
-                    <h3>Python API for Blender</h3>
+                    <h3>Pipeline Automation Tools</h3>
                     <div class="tags">
-                        <span>Python</span><span>OpenCV</span><span>Tech Art</span>
+                        <span>Python</span><span>Blender API</span><span>Tech Art</span>
                     </div>
-                    <p>Automation tools created to accelerate the art pipeline and validate asset quality.</p>
+                    <p>Bridged the gap between Art and Code. Developed Python scripts for Blender to auto-generate 3D models and validate assets before they entered Unity.</p>
                     <ul>
-                        <li><i class="fas fa-check"></i> Auto-generated 3D models via Python API.</li>
-                        <li><i class="fas fa-check"></i> Automated texture generation and lighting baking.</li>
-                        <li><i class="fas fa-check"></i> Reduced manual asset validation time for 3D artists.</li>
+                        <li><i class="fas fa-check"></i> Automated texture generation using OpenCV.</li>
+                        <li><i class="fas fa-check"></i> Reduced manual asset validation time for artists.</li>
                     </ul>
+                    <button class="btn secondary" onclick="toggleCode('tools')">
+                        <i class="fas fa-code"></i> Toggle Script
+                    </button>
                 </div>
             </article>
+
+        </div>
+    </section>
+
+    <!-- SECTION 2: CREATIVE WORKS (Game Jams & Personal) -->
+    <section id="creative">
+        <div class="container">
+            <h2 class="section-title">Personal Creative Works</h2>
+            <div class="skills-grid creative-grid">
+                
+                <!-- Prismatic Alchemy -->
+                <a href="https://christopherfl.itch.io/prismatic-alchemy" target="_blank" class="skill-category creative-card">
+                    <div class="mini-visual">
+                         <!-- <video src="assets/alchemy.mp4" muted loop class="hover-video"></video> -->
+                         <div class="placeholder-text">Video Preview</div>
+                    </div>
+                    <h3>Prismatic Alchemy</h3>
+                    <p class="tech-detail"><strong>Tech:</strong> Color Theory Algorithms, Drag & Drop UI</p>
+                    <p>A simulation game about mixing exact color values to craft potions.</p>
+                </a>
+
+                <!-- Wobble -->
+                <a href="https://bgdc.itch.io/wobble" target="_blank" class="skill-category creative-card">
+                    <div class="mini-visual">
+                         <!-- <video src="assets/wobble.mp4" muted loop class="hover-video"></video> -->
+                         <div class="placeholder-text">Video Preview</div>
+                    </div>
+                    <h3>Wobble</h3>
+                    <p class="tech-detail"><strong>Tech:</strong> 2D Physics Calculation, Environment Reactivity</p>
+                    <p>Experimental platformer where the level geometry tilts based on player mass.</p>
+                </a>
+
+                <!-- Cursed Wheep -->
+                <a href="https://bgdc.itch.io/the-cursed-wheep" target="_blank" class="skill-category creative-card">
+                    <div class="mini-visual">
+                        <div class="placeholder-text">Video Preview</div>
+                    </div>
+                    <h3>The Cursed Wheep</h3>
+                    <p class="tech-detail"><strong>Tech:</strong> State Pattern, Character Controller</p>
+                    <p>GMTK Jam Entry. Puzzle platformer relying on mechanics switching.</p>
+                </a>
+
+                <!-- Chaos Weekly -->
+                <a href="https://bgdc.itch.io/chaos-weekly" target="_blank" class="skill-category creative-card">
+                    <div class="mini-visual">
+                        <div class="placeholder-text">Video Preview</div>
+                    </div>
+                    <h3>Chaos Weekly</h3>
+                    <p class="tech-detail"><strong>Tech:</strong> Simulation Loops, UI Architecture</p>
+                    <p>Brackeys Jam Entry. News cycle simulation managing chaos vs revenue.</p>
+                </a>
+
+            </div>
         </div>
     </section>
 
     <!-- Skills Section -->
     <section id="skills" class="skills-section">
         <div class="container">
-            <h2 class="section-title">Technical Stack</h2>
+            <h2 class="section-title">Technical Skills</h2>
             <div class="skills-grid">
                 <div class="skill-category">
                     <h3><i class="fas fa-code"></i> Languages</h3>
@@ -136,7 +257,7 @@
                 </div>
                 <div class="skill-category">
                     <h3><i class="fas fa-layer-group"></i> Engine & Core</h3>
-                    <p>Unity (Expert), Godot, SOLID Principles, Addressables, Memory Management</p>
+                    <p>Unity, Godot, SOLID Principles, Addressables, Memory Management</p>
                 </div>
                 <div class="skill-category">
                     <h3><i class="fas fa-globe"></i> Multiplayer & Backend</h3>
@@ -144,26 +265,7 @@
                 </div>
                 <div class="skill-category">
                     <h3><i class="fas fa-chart-line"></i> LiveOps & Tools</h3>
-                    <p>Firebase (Analytics/Remote Config), Adjust, AppLovin, Blender Scripting, OpenCV</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Timeline (Condensed) -->
-    <section id="experience">
-        <div class="container">
-            <h2 class="section-title">Experience Highlights</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <span class="date">Nov 2024 - Present</span>
-                    <h3>Lead Game Programmer</h3>
-                    <p><strong>Ikan Asin Production</strong> • Mentoring juniors, managing technical roadmaps, and leading monthly releases for Cisini Stories.</p>
-                </div>
-                <div class="timeline-item">
-                    <span class="date">Mar 2023 - June 2024</span>
-                    <h3>Game Developer</h3>
-                    <p><strong>PT Graphie Global Interaktif</strong> • Developed TCG mechanics, Backend (Go), and Tech Art tools (Python/Blender).</p>
+                    <p>Firebase, Adjust, AppLovin, Blender Scripting, OpenCV</p>
                 </div>
             </div>
         </div>
@@ -173,7 +275,7 @@
     <footer id="contact">
         <div class="container">
             <h2>Let's Build Something Great</h2>
-            <p>Open for opportunities in Game Programming.</p>
+            <p>Open for opportunities in Game Development.</p>
             <a href="mailto:christopherfl.work@gmail.com" class="btn primary">Get in Touch</a>
             <div class="footer-bottom">
                 <p>&copy; 2025 Christopher Fendika Lee.</p>
@@ -181,16 +283,10 @@
         </div>
     </footer>
 
-    <script>
-        // Simple Smooth Scroll script
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
+    <script src="games/simulation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>
