@@ -93,7 +93,6 @@ class Particle {
 class Agent {
     constructor() {
         this.reset();
-        // Force random start position to be anywhere on screen initially
         this.pos = new Vector2(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
     }
 
