@@ -592,3 +592,67 @@ body.dm-mode .skills-section {
     background: rgba(37, 30, 25, 0.5); /* 85% opacity parchment */
 }
 
+/* --- GLITCHED SCREEN EFFECT --- */
+/* --- MEDIUM-HARD GLITCH (Signal Corruption) --- */
+@keyframes glitch-hard {
+    0% { 
+        transform: translate(0) scale(1);
+        filter: none;
+    }
+    10% {
+        /* Hard Shear + "Deep Fried" Contrast */
+        transform: translate(-2px, 1px) skewX(3deg);
+        filter: contrast(200%) saturate(300%) hue-rotate(45deg);
+        /* Wide RGB Split */
+        text-shadow: 8px 0 rgba(255, 0, 0, 0.9), -8px 0 rgba(0, 255, 255, 0.9);
+    }
+    30% {
+        transform: translate(2px, -1px) skewX(-3deg);
+        filter: contrast(150%) saturate(200%) hue-rotate(-45deg);
+        text-shadow: -8px 0 rgba(255, 0, 0, 0.9), 8px 0 rgba(0, 255, 255, 0.9);
+    }
+    50% {
+        /* Impact Zoom */
+        transform: scale(1.02);
+        filter: brightness(1.3) contrast(1.2);
+        text-shadow: none;
+    }
+    70% {
+        transform: translate(-2px, 0);
+        filter: none;
+    }
+    100% { 
+        transform: translate(0) scale(1);
+        filter: none;
+        text-shadow: none;
+    }
+}
+
+.glitch-active {
+    animation: glitch-hard 0.3s cubic-bezier(0.1, 0.9, 0.2, 1.0) both;
+    position: relative;
+    
+    /* Crucial: Keeps the scrollbar from jittering during the transform */
+    overflow-x: hidden; 
+}
+
+/* Optional: Add a Scanline Overlay during the glitch */
+.glitch-active::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.5) 3px
+    );
+    z-index: 9999;
+    pointer-events: none;
+    animation: fade-scanline 0.3s forwards;
+}
+
+@keyframes fade-scanline {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}

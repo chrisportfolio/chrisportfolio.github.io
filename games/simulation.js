@@ -93,74 +93,99 @@ class Particle {
 class Agent {
     constructor() {
         this.reset();
+        // Force random start position to be anywhere on screen initially
+        this.pos = new Vector2(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
     }
 
-reset() {
-        const margin = 50; // How far offscreen to spawn
+    reset() {
+        const margin = 50;
         const side = Math.floor(Math.random() * 4); // 0: Top, 1: Right, 2: Bottom, 3: Left
 
-        // 1. Teleport Offscreen
+        // 1. Spawn Offscreen
         switch(side) {
-            case 0: // Top
-                this.pos = new Vector2(Math.random() * window.innerWidth, -margin);
-                break;
-            case 1: // Right
-                this.pos = new Vector2(window.innerWidth + margin, Math.random() * window.innerHeight);
-                break;
-            case 2: // Bottom
-                this.pos = new Vector2(Math.random() * window.innerWidth, window.innerHeight + margin);
-                break;
-            case 3: // Left
-                this.pos = new Vector2(-margin, Math.random() * window.innerHeight);
-                break;
+            case 0: this.pos = new Vector2(Math.random() * window.innerWidth, -margin); break;
+            case 1: this.pos = new Vector2(window.innerWidth + margin, Math.random() * window.innerHeight); break;
+            case 2: this.pos = new Vector2(Math.random() * window.innerWidth, window.innerHeight + margin); break;
+            case 3: this.pos = new Vector2(-margin, Math.random() * window.innerHeight); break;
         }
 
-        // 2. Reset Physics (Give random velocity)
-        // Note: In a real game, you might force velocity towards the center so they don't fly away,
-        // but since we have world-wrapping in edges(), random is fine.
-        this.vel = new Vector2(Math.random() - 0.5, Math.random() - 0.5).setMag(Math.random() * 2 + 0.5);
+        // 2. RARE CHANCE (5%)
+        this.isRare = Math.random() < .02; 
+
+        // 3. Stats based on Rarity
+        if (this.isRare) {
+            this.vel = new Vector2(Math.random() - 0.5, Math.random() - 0.5).setMag(0.8); // Slower
+            this.size = 12 + Math.random() * 4; // Much bigger
+            this.hitbox = CONFIG.agentSize * 2.5; // Easier to click
+        } else {
+            this.vel = new Vector2(Math.random() - 0.5, Math.random() - 0.5).setMag(Math.random() * 2 + 0.5);
+            this.size = Math.random() * 4 + 3;
+            this.hitbox = CONFIG.agentSize;
+        }
+
         this.acc = new Vector2(0, 0);
-        
-        // 3. Randomize visuals again so it feels like a "new" unit
-        this.size = Math.random() * 4 + 3; 
-        this.hitbox = CONFIG.agentSize;   
-        this.isDead = false;
     }
 
     update() {
         this.vel.add(this.acc);
-        this.vel.limit(CONFIG.maxSpeed);
+        this.vel.limit(this.isRare ? 1.5 : CONFIG.maxSpeed); // Cap rare speed
         this.pos.add(this.vel);
         this.acc.mult(0);
         this.edges();
     }
 
     edges() {
-        if (this.pos.x > window.innerWidth + 50) this.pos.x = -50;
-        if (this.pos.x < -50) this.pos.x = window.innerWidth + 50;
-        if (this.pos.y > window.innerHeight + 50) this.pos.y = -50;
-        if (this.pos.y < -50) this.pos.y = window.innerHeight + 50;
+        const buffer = 60; // Allow them to fly fully offscreen before wrapping
+        if (this.pos.x > window.innerWidth + buffer) this.pos.x = -buffer;
+        if (this.pos.x < -buffer) this.pos.x = window.innerWidth + buffer;
+        if (this.pos.y > window.innerHeight + buffer) this.pos.y = -buffer;
+        if (this.pos.y < -buffer) this.pos.y = window.innerHeight + buffer;
     }
 
     draw(ctx, isDmMode) {
-        if (isDmMode) {
-            // Fantasy: Will-o-wisp
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = "rgba(214, 69, 65, 0.6)";
-            ctx.fillStyle = "#e6dcc8";
-            ctx.beginPath();
-            ctx.arc(this.pos.x, this.pos.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
+        if (this.isRare) {
+            // --- RARE RENDERING ---
+            const pulse = Math.sin(Date.now() / 150) * 0.2 + 1; // Pulsing size
+            const size = this.size * pulse;
+
+            if (isDmMode) {
+                // Fantasy: "Golden Snitch" / Legendary Spirit
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = "#ffd700"; // Gold Glow
+                ctx.fillStyle = "#fff8e7";
+                ctx.beginPath();
+                ctx.arc(this.pos.x, this.pos.y, size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            } else {
+                // Tech: "Critical Error" / Red Glitch
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = "#ff0055"; // Neon Red
+                ctx.fillStyle = "#ff0055";
+                
+                // Jitter effect
+                const jitterX = (Math.random() - 0.5) * 4;
+                const jitterY = (Math.random() - 0.5) * 4;
+                ctx.fillRect(this.pos.x + jitterX - size, this.pos.y + jitterY - size, size * 2, size * 2);
+                ctx.shadowBlur = 0;
+            }
         } else {
-            // Tech: Data Node
-            ctx.fillStyle = "#00e5ff";
-            ctx.fillRect(this.pos.x - this.size, this.pos.y - this.size, this.size * 2, this.size * 2);
-            
-            // Draw little "glitch" lines occasionally
-            if (Math.random() > 0.98) {
-                ctx.fillStyle = "white";
-                ctx.fillRect(this.pos.x + 5, this.pos.y, 4, 1);
+            // --- STANDARD RENDERING (Previous code) ---
+            if (isDmMode) {
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = "rgba(214, 69, 65, 0.6)";
+                ctx.fillStyle = "#e6dcc8";
+                ctx.beginPath();
+                ctx.arc(this.pos.x, this.pos.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            } else {
+                ctx.fillStyle = "#00e5ff";
+                ctx.fillRect(this.pos.x - this.size, this.pos.y - this.size, this.size * 2, this.size * 2);
+                if (Math.random() > 0.98) {
+                    ctx.fillStyle = "white";
+                    ctx.fillRect(this.pos.x + 5, this.pos.y, 4, 1);
+                }
             }
         }
     }
@@ -181,36 +206,64 @@ function init() {
 
 // --- 4. INPUT & INTERACTION ---
 window.addEventListener('mousedown', (e) => {
-    // Game Logic: Raycast from mouse to all agents
     const mousePos = new Vector2(e.clientX, e.clientY);
     const isDmMode = document.body.classList.contains('dm-mode');
-    let hit = false;
-
-    // We iterate backwards so we can remove/reset seamlessly
+    
     agents.forEach(agent => {
         const d = Vector2.dist(mousePos, agent.pos);
         
-        // Did we click it?
         if (d < agent.hitbox + CONFIG.clickRadius) {
-            hit = true;
-            score++;
+            // HIT!
+            if (agent.isRare) {
+                // --- RARE EFFECT ---
+                score += 50; // Bonus Points
+                spawnExplosion(agent.pos, isDmMode, true); // true = BIG explosion
+                triggerGlitch();
+            } else {
+                // --- NORMAL EFFECT ---
+                score++;
+                spawnExplosion(agent.pos, isDmMode, false);
+            }
+
             updateScoreUI(isDmMode);
-            spawnExplosion(agent.pos, isDmMode);
-            agent.reset(); // Respawn elsewhere immediately (Object Pooling style)
+            agent.reset(); 
         }
     });
-
-    // Optional: Add a visual ripple even on miss
-    if(!hit) {
-        // can add miss effect here
-    }
 });
 
-function spawnExplosion(pos, isDmMode) {
-    const color = isDmMode ? '#d64541' : '#00e5ff'; // Red vs Cyan
-    const count = 12;
+// Helper for Screen Glitch
+function triggerGlitch() {
+    // Add class to body
+    document.body.classList.add('glitch-active');
+    
+    // Remove it exactly when animation ends (250ms)
+    setTimeout(() => {
+        document.body.classList.remove('glitch-active');
+    }, 250); 
+}
+
+function spawnExplosion(pos, isDmMode, isBig) {
+    let color;
+    if (isBig) {
+        // Gold for Fantasy, Red for Tech
+        color = isDmMode ? '#ffd700' : '#ff0055'; 
+    } else {
+        // Red for Fantasy, Cyan for Tech
+        color = isDmMode ? '#d64541' : '#00e5ff';
+    }
+
+    // Spawn more particles for big explosions
+    const count = isBig ? 40 : 12; 
+    
     for(let i=0; i<count; i++) {
-        particles.push(new Particle(pos.x, pos.y, color, !isDmMode));
+        const p = new Particle(pos.x, pos.y, color, !isDmMode);
+        
+        // If big, make particles faster
+        if(isBig) {
+            p.vel.mult(2.5);
+            p.size *= 1.5;
+        }
+        particles.push(p);
     }
 }
 
