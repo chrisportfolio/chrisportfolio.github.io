@@ -109,7 +109,7 @@ class Agent {
         }
 
         // 2. RARE CHANCE (5%)
-        this.isRare = Math.random() < 1; 
+        this.isRare = Math.random() < .02; 
 
         // 3. Stats based on Rarity
         if (this.isRare) {
