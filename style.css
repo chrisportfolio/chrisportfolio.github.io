@@ -406,6 +406,8 @@ nav {
     color: #d4d4d4; /* Base code color */
 }
 
+pre[class*="language-"] code { font-size: 0.75rem !important; }
+
 /* --- CREATIVE WORKS GRID --- */
 .skills-grid {
     display: grid;

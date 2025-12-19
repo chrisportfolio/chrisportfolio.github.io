@@ -101,30 +101,19 @@
                     <!-- Upload 'multiplayer-lag.mp4' later -->
                     <video src="assets/multiplayer-lag.mp4" muted loop class="hover-video"></video>
                     
-                    <div id="code-multi" class="code-overlay">
-<pre><code class="language-csharp">
-// Server Validation Logic
-public void ValidateMove(Vector3 clientPos, float timestamp) {
-    float latency = GetLatency(clientId);
-    // Allowable distance based on speed + latency
-    float maxDist = speed * (timestamp - lastTime + latency);
-    
-    if (Vector3.Distance(lastPos, clientPos) > maxDist) {
-        CorrectPosition(lastPos); // Rubberband
-    }
-}
-</code></pre>
+                    <div id="code-multi" class="code-overlay" data-snippet="snippets/nakama-validation.ts" data-lang="csharp">
+                        <pre><code class="language-csharp">Loading sample code...</code></pre>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3>Real-Time Multiplayer Core</h3>
+                    <h3>Turn-Based Multiplayer Core</h3>
                     <div class="tags">
-                        <span>Networking</span><span>Prediction</span><span>Anti-Cheat</span>
+                        <span>State Sync</span><span>Asynchronous</span><span>Move Validation</span>
                     </div>
-                    <p>Built a server-authoritative prototype to prevent speed-hacking. Solved complex replication challenges for volatile mobile networks.</p>
+                    <p>Developed a server-authoritative engine to prevent illegal move injection and state manipulation.</p>
                     <ul>
-                        <li><i class="fas fa-check"></i> Custom Lag Compensation & Interpolation.</li>
-                        <li><i class="fas fa-check"></i> Optimized Bandwidth usage for low-end devices.</li>
+                        <li><i class="fas fa-shield-alt"></i> Server-Side Validation for every game action.</li>
+                        <li><i class="fas fa-users"></i> Scalable Lobby Management and Elo-based Matchmaking.</li>
                     </ul>
                     <button class="btn secondary" onclick="toggleCode('multi')">
                         <i class="fas fa-code"></i> Toggle Logic
@@ -142,20 +131,8 @@ public void ValidateMove(Vector3 clientPos, float timestamp) {
                     <!-- Upload 'tools-automation.mp4' later -->
                     <video src="assets/tools-automation.mp4" muted loop class="hover-video"></video>
                     
-                    <div id="code-tools" class="code-overlay">
-<pre><code class="language-python">
-# Python Blender API Script
-import bpy
-
-def batch_process_assets(path):
-    for obj in bpy.context.scene.objects:
-        if obj.type == 'MESH':
-            # Auto-generate UVs and Bake Lighting
-            bpy.ops.uv.smart_project()
-            bake_texture(obj, "diffuse")
-            
-    export_to_unity(path)
-</code></pre>
+                    <div id="code-blender" class="code-overlay" data-snippet="snippets/blender-mesh.py" data-lang="csharp">
+                        <pre><code class="language-csharp">Loading sample code...</code></pre>
                     </div>
                 </div>
 
@@ -166,10 +143,10 @@ def batch_process_assets(path):
                     </div>
                     <p>Bridged the gap between Art and Code. Developed Python scripts for Blender to auto-generate 3D models and validate assets before they entered Unity.</p>
                     <ul>
-                        <li><i class="fas fa-check"></i> Automated texture generation using OpenCV.</li>
-                        <li><i class="fas fa-check"></i> Reduced manual asset validation time for artists.</li>
+                        <li><i class="fas fa-cube"></i> Automated texture generation using OpenCV.</li>
+                        <li><i class="fas fa-bolt"></i> Reduced manual asset validation time for artists.</li>
                     </ul>
-                    <button class="btn secondary" onclick="toggleCode('tools')">
+                    <button class="btn secondary" onclick="toggleCode('blender')">
                         <i class="fas fa-code"></i> Toggle Script
                     </button>
                 </div>
