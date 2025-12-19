@@ -4,25 +4,36 @@ const matchLoop = function(ctx: nkruntime.Context, logger: nkruntime.Logger, nk:
         const { opCode, sender, data } = message;
 
         if (opCode === OpCode.MOVE_PIECE) {
-            const move = JSON.parse(nk.binaryToString(data));
+            let move;
+            try {
+                move = JSON.parse(nk.binaryToString(data));
+            } catch (e) {
+                logger.warn(`Parsing error: ${e}`);
+                continue;
+            }
 
-            // Guard: Ignore moves sent out of turn
+            // Verify turn
             if (sender.sessionId !== state.currentPlayerId) {
-                logger.warn(`Unauthorized move: ${sender.userId}`);
+                logger.warn(`Out of turn move: ${sender.userId}`);
                 continue; 
             }
 
-            // Reject illegal movement (teleporting/clipping)
             if (!isValidMove(state.board, move.from, move.to)) {
-                logger.debug("Move rejected: Logic violation");
+                logger.warn(`Invalid move: ${sender.userId}`);
                 continue; 
             }
 
-            // Commit move and relay to peers
+            // Update board state
+            const piece = state.board[move.from.x][move.from.y];
+            state.board[move.to.x][move.to.y] = piece;
+            state.board[move.from.x][move.from.y] = null;
+
             state.actionsLeft--;
+
+            // Relay move to other players
             dispatcher.broadcastMessage(OpCode.MOVE_PIECE, data, null, sender);
 
-            // Handle turn exhaustion
+            // Handle turn swap
             if (state.actionsLeft <= 0) {
                 const roll = getRandomIntRange(1, 6);
                 state.actionsLeft = roll;
@@ -39,8 +50,15 @@ const matchLoop = function(ctx: nkruntime.Context, logger: nkruntime.Logger, nk:
     return { state };
 };
 
-// Validates Manhattan distance and target occupancy
-function isValidMove(board: any, from: Vector2, to: Vector2): boolean {
+function isValidMove(board: any[][], from: Vector2, to: Vector2): boolean {
+    // Basic bounds check
+    if (to.x < 0 || to.y < 0 || to.x >= board.length || to.y >= board[0].length) return false;
+    if (from.x < 0 || from.y < 0 || from.x >= board.length || from.y >= board[0].length) return false;
+
+    // Must move an existing piece to an empty square
+    if (!board[from.x][from.y] || board[to.x][to.y] !== null) return false;
+
+    // Manhattan distance check
     const dist = Math.abs(to.x - from.x) + Math.abs(to.y - from.y);
-    return dist === 1 && board[to.x][to.y] === null;
+    return dist === 1;
 }
