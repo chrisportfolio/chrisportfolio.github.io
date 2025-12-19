@@ -379,7 +379,7 @@ nav {
 
 /* Fake IDE Toolbar */
 .code-overlay::before {
-    content: "Logic.cs";
+    content: "Sample Code";
     display: flex;
     align-items: center;
     padding-left: 20px;
@@ -402,7 +402,7 @@ nav {
 
 .code-overlay code {
     font-family: var(--font-code);
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     color: #d4d4d4; /* Base code color */
 }
 
