@@ -69,29 +69,13 @@
                     <!-- Upload 'cisini-flow.mp4' later -->
                     <video src="assets/cisini-flow.mp4" muted loop class="hover-video"></video>
                     
-                    <div id="code-cisini" class="code-overlay">
-<pre><code class="language-csharp">
-// Strict Interface-Based Flow
-public interface ISystem {
-    void OnInitialized();
-    void OnGameBegin();
-    void OnUpdate(float dt);
-    void OnCleanup();
-}
-
-// Manager Loop (Deterministic)
-private void Update() {
-    foreach(var system in _systems) {
-        if(system.IsActive) 
-            system.OnUpdate(Time.deltaTime);
-    }
-}
-</code></pre>
+                    <div id="code-cisini" class="code-overlay" data-snippet="snippets/cisini-rewards.cs" data-lang="csharp">
+                        <pre><code class="language-csharp">Loading sample code...</code></pre>
                     </div>
                 </div>
 
                 <div class="project-info">
-                    <h3>Cisini Stories (Lead Engineer)</h3>
+                    <h3>Cisini Stories</h3>
                     <div class="tags">
                         <span>Lead & Mentorship</span><span>LiveOps</span><span>Architecture</span>
                     </div>

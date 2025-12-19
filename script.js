@@ -50,11 +50,36 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 4. Code Toggle Function (Global scope needed for onclick)
-function toggleCode(id) {
-    const codeBlock = document.getElementById(`code-${id}`);
-    if(codeBlock) {
-        codeBlock.classList.toggle('active');
+// Updated Code Toggle with External Fetching
+async function toggleCode(id) {
+    const container = document.getElementById(`code-${id}`);
+    if (!container) return;
+
+    const codeTag = container.querySelector('code');
+    const filePath = container.getAttribute('data-snippet');
+    
+    // 1. If not loaded yet, fetch it
+    if (container.getAttribute('data-loaded') !== 'true') {
+        try {
+            codeTag.textContent = "Fetching remote snippet...";
+            const response = await fetch(filePath);
+            if (!response.ok) throw new Error("File not found");
+            const text = await response.text();
+            
+            // Set the content
+            codeTag.textContent = text;
+            container.setAttribute('data-loaded', 'true');
+            
+            // 2. Tell Prism to highlight the new content
+            Prism.highlightElement(codeTag);
+            
+        } catch (err) {
+            codeTag.textContent = `// Error loading code: ${err.message}`;
+        }
     }
+
+    // 3. Show/Hide the overlay
+    container.classList.toggle('active');
 }
 
 // Scroll Spy
