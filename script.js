@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Video Playback on Hover
     // Works for both main Projects and Creative Cards
-    const videoContainers = document.querySelectorAll('.video-container, .mini-visual');
+    const videoContainers = document.querySelectorAll('.creative-card');
 
     videoContainers.forEach(container => {
         const video = container.querySelector('video');
@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
             container.addEventListener('mouseleave', () => {
                 video.pause();
                 video.currentTime = 0;
+                // This line resets the video so the thumbnail (poster) shows again
+                video.load(); 
             });
         }
     });
