@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Video Playback on Hover
     // Works for both main Projects and Creative Cards
-    const videoContainers = document.querySelectorAll('.creative-card');
+    const videoContainers = document.querySelectorAll('.creative-card, .project-visual');
 
     videoContainers.forEach(container => {
         const video = container.querySelector('video');

@@ -282,7 +282,6 @@ nav {
     gap: 50px;
     margin-bottom: 100px;
     align-items: center;
-    background: rgba(18, 18, 18, 0.5); /* 85% opacity */
     backdrop-filter: blur(8px);        /* Blur the simulation behind it */
     -webkit-backdrop-filter: blur(8px)
 }
@@ -308,24 +307,53 @@ nav {
     border-color: var(--accent);
 }
 
-.placeholder-img {
-    width: 100%;
-    height: 100%;
+.video-container {
+    position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
-    background: linear-gradient(135deg, var(--bg-surface-1), var(--bg-surface-2));
+    height: 300px; /* IMPORTANT: Container MUST have a height for 100% child to work */
+    width: 100%;
+    overflow: hidden; /* Ensures the cropped parts of the video are hidden */
 }
 
-.placeholder-img i {
-    font-size: 3rem;
-    margin-bottom: 16px;
-    color: var(--accent);
-    opacity: 0.5;
+.hover-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Forces fill and crop */
+    display: block;
 }
 
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* Improved readability */
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(1px); 
+    -webkit-backdrop-filter: blur(1px);
+    
+    color: var(--text-primary);
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.video-container:hover .video-overlay {
+    opacity: 0;
+    backdrop-filter: blur(0px); /* Clean transition out */
+}
+
+.video-overlay i {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    color: var(--accent); /* Changed from var(--accent) if accent was too dark */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
 .project-info h3 { font-size: 2rem; margin-bottom: 12px; }
 
 .tags {
@@ -593,11 +621,6 @@ body.dm-mode .code-overlay::before {
     background: #15100d;
     color: #a89f91;
     font-family: 'Cinzel', serif;
-}
-
-body.dm-mode .project-card,
-body.dm-mode .skills-section {
-    background: rgba(37, 30, 25, 0.5); /* 85% opacity parchment */
 }
 
 /* --- GLITCHED SCREEN EFFECT --- */
