@@ -766,98 +766,88 @@ body.dm-mode #score-val {
     50% { opacity: 1; }
 }
 
-.pipeline-node-graph {
-    background: #050505; /* Deep rich black, not Unity gray */
+.vertical-pipeline {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0; /* Gaps handled by connectors */
-    padding: 20px;
+    padding: 30px;
+    height: 100%; /* Fill the 380px container */
+    width:100%;
+}
+
+/* Individual Step Styling */
+.pipe-node {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 280px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.node-icon {
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    width: 40px;
+    text-align: center;
+}
+
+.node-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.node-label {
+    font-family: var(--font-code);
+    font-size: 0.65rem;
+    color: #666;
+    letter-spacing: 1px;
+}
+
+.node-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Highlighting the active logic (The Python Tool) */
+.pipe-node.active {
+    border-color: var(--accent);
+    background: rgba(0, 229, 255, 0.05);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+}
+
+.pipe-node.active .node-icon,
+.pipe-node.active .node-desc {
+    color: var(--accent);
+}
+
+/* The Vertical Connectors */
+.pipe-line {
+    width: 2px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
 }
 
-/* Background Grid (Very faint for texture) */
-.pipeline-node-graph::before {
-    content: "";
+.pipe-pulse {
     position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
-    background-size: 20px 20px;
-    opacity: 0.3;
-}
-
-/* Individual Nodes */
-.node {
-    z-index: 2;
-    width: 110px;
-    background: rgba(20, 20, 20, 0.8);
-    border: 1px solid #333;
-    border-radius: 6px;
-    font-family: var(--font-code);
-    font-size: 0.65rem;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
-
-.node-header {
-    background: #222;
-    padding: 4px 8px;
-    font-size: 0.55rem;
-    color: #888;
-    border-bottom: 1px solid #333;
-    border-radius: 6px 6px 0 0;
-    text-align: left;
-}
-
-.node-content {
-    padding: 12px 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: #eee;
-}
-
-.node.processor {
-    border-color: var(--accent);
-    box-shadow: 0 0 15px var(--accent-glow);
-}
-
-.node.processor i {
-    color: var(--accent);
-    filter: drop-shadow(0 0 5px var(--accent));
-}
-
-/* The Connection Lines */
-.node-connector {
-    width: 50px;
-    height: 2px;
-    background: #222;
-    position: relative;
-}
-
-/* The Animated Pulse Line */
-.pulse-line {
-    position: absolute;
-    top: 0;
+    top: -100%;
     left: 0;
+    width: 100%;
     height: 100%;
-    width: 20px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    animation: pipeline-flow 1.5s infinite linear;
+    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    animation: pipe-flow-down 1.5s infinite linear;
 }
 
-@keyframes pipeline-flow {
-    0% { left: -20px; opacity: 0; }
-    50% { opacity: 1; }
-    100% { left: 100%; opacity: 0; }
+@keyframes pipe-flow-down {
+    0% { top: -100%; }
+    100% { top: 100%; }
 }
-
-/* Text Flashing Animation */
-.processing-text {
-    font-size: 0.5rem;
-    color: var(--accent);
-    animation: blink 1s infinite;
-}
-
-@keyframes blink { 50% { opacity: 0.3; } }

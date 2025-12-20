@@ -125,35 +125,47 @@
             <article class="project-card">
                 <div class="project-visual video-container">
 
-                    <div class="project-visual pipeline-node-graph">
-                        <!-- Source Node -->
-                        <div class="node source">
-                            <div class="node-header">INPUT</div>
-                            <div class="node-content"><i class="fas fa-cube"></i> OBJ/FBX</div>
-                        </div>
-                    
-                        <!-- The Animated Connection -->
-                        <div class="node-connector">
-                            <div class="pulse-line"></div>
-                        </div>
-                    
-                        <!-- Processor Node (The Highlight) -->
-                        <div class="node processor">
-                            <div class="node-header">PYTHON_API</div>
-                            <div class="node-content">
-                                <i class="fab fa-python"></i>
-                                <span class="processing-text">VALIDATING...</span>
+                    <div class="project-visual vertical-pipeline">
+                        <!-- Step 1 -->
+                        <div class="pipe-node">
+                            <div class="node-icon"><i class="fas fa-file-import"></i></div>
+                            <div class="node-text">
+                                <span class="node-label">INPUT</span>
+                                <span class="node-desc">Raw 3D Assets</span>
                             </div>
                         </div>
                     
-                        <div class="node-connector">
-                            <div class="pulse-line"></div>
+                        <div class="pipe-line"><div class="pipe-pulse"></div></div>
+                    
+                        <!-- Step 2 (The Python Tool) -->
+                        <div class="pipe-node active">
+                            <div class="node-icon"><i class="fab fa-python"></i></div>
+                            <div class="node-text">
+                                <span class="node-label">PROCESSOR</span>
+                                <span class="node-desc">Blender Python API</span>
+                            </div>
                         </div>
                     
-                        <!-- Output Node -->
-                        <div class="node output">
-                            <div class="node-header">OUTPUT</div>
-                            <div class="node-content"><i class="fab fa-unity"></i> PREFAB</div>
+                        <div class="pipe-line"><div class="pipe-pulse"></div></div>
+                    
+                        <!-- Step 3 -->
+                        <div class="pipe-node">
+                            <div class="node-icon"><i class="fas fa-cubes"></i></div>
+                            <div class="node-text">
+                                <span class="node-label">PACKAGING</span>
+                                <span class="node-desc">Rig & Texture Integration</span>
+                            </div>
+                        </div>
+                    
+                        <div class="pipe-line"><div class="pipe-pulse"></div></div>
+                    
+                        <!-- Step 4 -->
+                        <div class="pipe-node">
+                            <div class="node-icon"><i class="fab fa-unity"></i></div>
+                            <div class="node-text">
+                                <span class="node-label">OUTPUT</span>
+                                <span class="node-desc">Unity Prefab</span>
+                            </div>
                         </div>
                     </div>
                     
