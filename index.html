@@ -66,7 +66,6 @@
                 <a href="https://play.google.com/store/apps/details?id=com.ikanasinproduction.cisinistories" target="_blank" class="project-visual video-container">
                     <div class="video-overlay">
                         <i class="fas fa-play"></i>
-                        <span>Game Preview</span>
                     </div>
                     <!-- Upload 'cisini-flow.mp4' later -->
                     <video src="assets/cisini-clips.mp4" poster="assets/cisini-thumb.webp" muted loop class="hover-video"></video>
@@ -98,17 +97,16 @@
                 <a href="https://store.steampowered.com/app/4077580/Chess_Nuke/" target="_blank" class="project-visual video-container">
                     <div class="video-overlay">
                         <i class="fas fa-play"></i>
-                        <span>Game Preview</span>
                     </div>
                     <!-- Upload 'multiplayer-lag.mp4' later -->
-                    <video src="assets/multiplayer-lag.mp4" muted loop class="hover-video"></video>
+                    <video src="assets/multiplayer-lag.mp4" poster="assets/chess-nuke-thumb.webp" muted loop class="hover-video"></video>
                     
                     <div id="code-multi" class="code-overlay" data-snippet="snippets/nakama-validation.ts" data-lang="csharp">
                         <pre><code class="language-csharp">Loading sample code...</code></pre>
                     </div>
                 </a>
                 <div class="project-info">
-                    <h3>Turn-Based Multiplayer Core</h3>
+                    <h3>Turn-Based Multiplayer</h3>
                     <div class="tags">
                         <span>State Sync</span><span>Asynchronous</span><span>Move Validation</span>
                     </div>
@@ -126,12 +124,38 @@
             <!-- Card 3: Tools (Focus: Pipeline & Python) -->
             <article class="project-card">
                 <div class="project-visual video-container">
-                    <div class="video-overlay">
-                        <i class="fas fa-tools"></i>
-                        <span>Hover: Auto-Model Generation</span>
+
+                    <div class="project-visual pipeline-node-graph">
+                        <!-- Source Node -->
+                        <div class="node source">
+                            <div class="node-header">INPUT</div>
+                            <div class="node-content"><i class="fas fa-cube"></i> OBJ/FBX</div>
+                        </div>
+                    
+                        <!-- The Animated Connection -->
+                        <div class="node-connector">
+                            <div class="pulse-line"></div>
+                        </div>
+                    
+                        <!-- Processor Node (The Highlight) -->
+                        <div class="node processor">
+                            <div class="node-header">PYTHON_API</div>
+                            <div class="node-content">
+                                <i class="fab fa-python"></i>
+                                <span class="processing-text">VALIDATING...</span>
+                            </div>
+                        </div>
+                    
+                        <div class="node-connector">
+                            <div class="pulse-line"></div>
+                        </div>
+                    
+                        <!-- Output Node -->
+                        <div class="node output">
+                            <div class="node-header">OUTPUT</div>
+                            <div class="node-content"><i class="fab fa-unity"></i> PREFAB</div>
+                        </div>
                     </div>
-                    <!-- Upload 'tools-automation.mp4' later -->
-                    <video src="assets/tools-automation.mp4" muted loop class="hover-video"></video>
                     
                     <div id="code-blender" class="code-overlay" data-snippet="snippets/blender-mesh.py" data-lang="csharp">
                         <pre><code class="language-csharp">Loading sample code...</code></pre>

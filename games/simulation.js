@@ -15,7 +15,7 @@ canvas.style.zIndex = '-1';
 // so we'll handle game clicks via a global window listener instead of canvas events.
 canvas.style.pointerEvents = 'none';
 
-// UI: Score Counter
+// UI: Counter
 const scoreDiv = document.createElement('div');
 scoreDiv.id = 'game-score';
 scoreDiv.innerHTML = '<span id="score-label">SYSTEM NORMAL</span> <span id="score-val"></span>';
@@ -204,22 +204,34 @@ function init() {
 }
 
 // --- 4. INPUT & INTERACTION ---
-window.addEventListener('mousedown', (e) => {
-    const mousePos = new Vector2(e.clientX, e.clientY);
+
+// Track mouse position globally
+let mousePos = new Vector2(-1000, -1000); // Start off-screen
+
+window.addEventListener('mousemove', (e) => {
+    mousePos.x = e.clientX;
+    mousePos.y = e.clientY;
+});
+
+// Support for touch devices
+window.addEventListener('touchmove', (e) => {
+    mousePos.x = e.touches[0].clientX;
+    mousePos.y = e.touches[0].clientY;
+});
+
+function checkCollisions() {
     const isDmMode = document.body.classList.contains('dm-mode');
     
     agents.forEach(agent => {
         const d = Vector2.dist(mousePos, agent.pos);
         
-        if (d < agent.hitbox + CONFIG.clickRadius) {
-            // HIT!
+        // We check every frame: if the agent flies into the mouse OR mouse moves into agent
+        if (d < agent.hitbox * 2) {
             if (agent.isRare) {
-                // --- RARE EFFECT ---
-                score += 50; // Bonus Points
-                spawnExplosion(agent.pos, isDmMode, true); // true = BIG explosion
+                score += 50;
+                spawnExplosion(agent.pos, isDmMode, true);
                 triggerGlitch();
             } else {
-                // --- NORMAL EFFECT ---
                 score++;
                 spawnExplosion(agent.pos, isDmMode, false);
             }
@@ -228,7 +240,7 @@ window.addEventListener('mousedown', (e) => {
             agent.reset(); 
         }
     });
-});
+}
 
 // Helper for Screen Glitch
 function triggerGlitch() {
@@ -269,17 +281,21 @@ function spawnExplosion(pos, isDmMode, isBig) {
 function updateScoreUI(isDmMode) {
     const label = document.getElementById('score-label');
     const val = document.getElementById('score-val');
+    const container = document.getElementById('game-score');
     
-    val.innerText = `[${score}]`;
+    // 1. Pad the score for a "Tech" feel (e.g., 0042)
+    const displayScore = score.toString().padStart(4, '0');
+    val.innerText = displayScore;
+    
+    // 2. Add the animation class
+    val.classList.remove('score-bump');
+    void val.offsetWidth; // Trigger reflow to restart animation
+    val.classList.add('score-bump');
     
     if (isDmMode) {
-        label.innerText = "SPIRITS BANISHED";
-        scoreDiv.style.color = "var(--accent)";
-        scoreDiv.style.fontFamily = "'Cinzel', serif";
+        label.innerText = "Spirits Banished";
     } else {
-        label.innerText = "BUGS PATCHED";
-        scoreDiv.style.color = "var(--accent)";
-        scoreDiv.style.fontFamily = "'JetBrains Mono', monospace";
+        label.innerText = "System.Bugs_Fixed";
     }
 }
 
@@ -290,17 +306,19 @@ function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const isDmMode = document.body.classList.contains('dm-mode');
 
-    // Draw Agents & Connections
+    // NEW: Check for collisions every frame
+    checkCollisions();
+
+    // Draw Connections
     ctx.strokeStyle = isDmMode ? "rgba(214, 69, 65, 0.1)" : "rgba(0, 229, 255, 0.1)";
     ctx.lineWidth = 1;
 
-    // 1. Update Agents
+    // 1. Update & Draw Agents
     for (let i = 0; i < agents.length; i++) {
         const a = agents[i];
         a.update();
         a.draw(ctx, isDmMode);
 
-        // Connect nearby agents
         for (let j = i + 1; j < agents.length; j++) {
             const b = agents[j];
             const d = Vector2.dist(a.pos, b.pos);
@@ -313,7 +331,7 @@ function gameLoop() {
         }
     }
 
-    // 2. Update Particles
+    // 2. Update & Draw Particles
     for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.update();
